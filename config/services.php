@@ -39,6 +39,11 @@ return [
         'base_uri' => env('BYBIT_BASE_URI'),
         'api_key' => env('BYBIT_API_KEY'),
         'api_secret' => env('BYBIT_API_SECRET')
+    ],
+
+    't_invest' => [
+        'token' => env('T_INVEST_TOKEN'),
+        'base_uri' => env('T_INVEST_BASE_URI')
     ]
 
 ];

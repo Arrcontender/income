@@ -2,9 +2,10 @@
 
 namespace App\Services\Bybit;
 
+use App\Services\SourceService;
 use GuzzleHttp\Exception\GuzzleException;
 
-class BybitService
+class BybitService implements SourceService
 {
     protected BybitApi $api;
 
@@ -17,15 +18,23 @@ class BybitService
      * @throws \HttpException
      * @throws GuzzleException
      */
-    public function getWalletBalance(AccountTypeEnum $accountType, ?CoinEnum $coin = null): array
+    public function getTotalBalance(): float
     {
-        $params = [
-            'accountType' => $accountType->name
-        ];
-        if ($coin) {
-            $params['coin'] = $coin->name;
-        }
+        $results = [];
+        $results[] =  $this->api->getWalletBalance([
+            'accountType' => AccountTypeEnum::UNIFIED->name
+        ]);
 
-        return $this->api->getWalletBalance($params);
+        // TODO не работает "accountType only support UNIFIED."
+//        $fund = $this->api->getWalletBalance([
+//            'accountType' => AccountTypeEnum::FUND->name
+//        ]);
+
+        return array_reduce($results, function ($carry, $account) {
+            foreach ($account['list'] as $item) {
+                $carry += $item['totalEquity'];
+            }
+            return $carry;
+        }, 0);
     }
 }

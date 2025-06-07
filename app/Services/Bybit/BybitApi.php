@@ -50,7 +50,7 @@ class BybitApi
      * @throws GuzzleException
      * @throws HttpException
      */
-    protected function request(string $method, string $endpoint, array $params = []): Response
+    protected function request(string $method, string $endpoint, array $params = []): BybitResponse
     {
         $timestamp = (int)(microtime(true) * 1000);
 
@@ -68,27 +68,18 @@ class BybitApi
             $options['json'] = $params;
         }
 
-        try {
-            $response = $this->client->request($method, $endpoint, $options);
-            $response = new Response($response);
+        $response = $this->client->request($method, $endpoint, $options);
+        $response = new BybitResponse($response);
 
-            if ($response->getHttpResponse()->getStatusCode() != 200) {
-                $exception = new HttpException($response->getHttpResponse()->getReasonPhrase(), $response->getHttpResponse()->getStatusCode());
-                throw $exception;
-            } else if (!$response->isSuccessful()) {
-                $exception = new HttpException($response->getApiMessage(), $response->getApiCode());
-                throw $exception;
-            }
-
-            return $response;
-
-        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            throw new HttpException($e->getMessage(), $e->getCode(), $e);
-        } catch (HttpException $exception) {
+        if ($response->getHttpResponse()->getStatusCode() != 200) {
+            $exception = new \Exception($response->getHttpResponse()->getReasonPhrase(), $response->getHttpResponse()->getStatusCode());
             throw $exception;
-        } catch (\Exception $e) {
-            throw new HttpException($e->getMessage(), $e->getCode(), $e);
+        } else if (!$response->isSuccessful()) {
+            $exception = new \Exception($response->getApiMessage(), $response->getApiCode());
+            throw $exception;
         }
+
+        return $response;
     }
 
     /**
