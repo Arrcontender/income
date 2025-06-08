@@ -81,6 +81,7 @@
 <script setup>
 import {ref, onMounted} from 'vue'
 import axios from 'axios'
+import { toast } from 'vue3-toastify'
 
 const bybit = ref(0)
 const tinvest = ref(0)
@@ -185,6 +186,14 @@ async function fetchBalances() {
         updatedAt.value = new Date().toLocaleString('ru-RU')
     } catch (err) {
         console.error('Ошибка получения данных:', err)
+        let message = 'Ошибка получения данных';
+        if (typeof err === 'string') message = err;
+        else if (err && typeof err === 'object') {
+            if (err.message) message = err.message;
+            else if (err.response && err.response.data && err.response.data.message) message = err.response.data.message;
+            else message = JSON.stringify(err, Object.getOwnPropertyNames(err));
+        }
+        toast.error(typeof message === 'string' ? message : JSON.stringify(message));
     } finally {
         loading.value = false
     }

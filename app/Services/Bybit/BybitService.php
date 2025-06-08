@@ -3,7 +3,6 @@
 namespace App\Services\Bybit;
 
 use App\Services\SourceService;
-use GuzzleHttp\Exception\GuzzleException;
 
 class BybitService implements SourceService
 {
@@ -14,10 +13,6 @@ class BybitService implements SourceService
         $this->api = $bybitApi;
     }
 
-    /**
-     * @throws \HttpException
-     * @throws GuzzleException
-     */
     public function getTotalBalance(): float
     {
         $results = [];

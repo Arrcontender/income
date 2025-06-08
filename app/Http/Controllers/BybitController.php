@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Bybit\AccountTypeEnum;
 use App\Services\Bybit\BybitService;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -15,7 +14,6 @@ class BybitController extends Controller
     }
 
     /**
-     * @throws \HttpException
      * @throws GuzzleException
      */
     public function getBalance()

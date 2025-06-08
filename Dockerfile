@@ -10,6 +10,10 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     gnupg2 \
     ca-certificates \
+    libcurl4-openssl-dev \
+    libevent-dev \
+    zlib1g-dev \
+    libicu-dev \
     && docker-php-ext-install pdo_pgsql mbstring zip opcache
 
 RUN pecl install redis && docker-php-ext-enable redis

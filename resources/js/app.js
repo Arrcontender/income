@@ -3,14 +3,17 @@ import './bootstrap';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import VueApexCharts from 'vue3-apexcharts'
-import 'vue3-toastify/dist/index.css'
+import VueApexCharts from 'vue3-apexcharts';
 
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(router)
-app.use(VueApexCharts)
-app.component('apexchart', VueApexCharts)
+// Подключаем плагины
+app.use(router);
+// app.use(toast);
 
-app.mount('#app')
+if (!app._context.components.apexchart) {
+    app.component('apexchart', VueApexCharts);
+}
+
+app.mount('#app');
