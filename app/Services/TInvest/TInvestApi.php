@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Promise\Utils;
 
-class TInvestApi
+class TInvestApi implements TInvestApiInterface
 {
     protected Client $client;
 
@@ -26,7 +26,7 @@ class TInvestApi
      * @throws GuzzleException
      * @throws \HttpException
      */
-    public function getAccounts()
+    public function getAccounts(): array
     {
         $response = $this->client->post('rest/tinkoff.public.invest.api.contract.v1.UsersService/GetAccounts', [
             'json' => [
@@ -43,7 +43,7 @@ class TInvestApi
         return array_map(fn(array $account) => $account['id'], $response->getBody()['accounts']);
     }
 
-    public function getPortfolio(array $accountsIds)
+    public function getPortfolio(array $accountsIds): array
     {
         $promises = [];
         foreach ($accountsIds as $accountId) {

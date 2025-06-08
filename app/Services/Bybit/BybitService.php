@@ -7,9 +7,9 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class BybitService implements SourceService
 {
-    protected BybitApi $api;
+    protected BybitApiInterface $api;
 
-    public function __construct(BybitApi $bybitApi)
+    public function __construct(BybitApiInterface $bybitApi)
     {
         $this->api = $bybitApi;
     }

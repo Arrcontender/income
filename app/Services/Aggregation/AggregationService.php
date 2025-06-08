@@ -19,12 +19,11 @@ class AggregationService
         ];
     }
 
-    public function getTotalBalance(): int
+    public function getTotalBalance(): float
     {
         return array_reduce($this->registerServices(), function ($carry, string $service) {
             $carry += app($service)->getTotalBalance();
             return $carry;
         }, 0);
-
     }
 }

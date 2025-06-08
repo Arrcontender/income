@@ -7,9 +7,9 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class TInvestService implements SourceService
 {
-    protected TInvestApi $api;
+    protected TInvestApiInterface $api;
 
-    public function __construct(TInvestApi $api)
+    public function __construct(TInvestApiInterface $api)
     {
         $this->api = $api;
     }

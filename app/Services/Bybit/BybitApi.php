@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use HttpException;
 
-class BybitApi
+class BybitApi implements BybitApiInterface
 {
     const BAPI_RECV_WINDOW = "5000";
     const BAPI_SIGN_TYPE = "2";
