@@ -15,6 +15,6 @@ class TInvestController
 
     public function getBalance()
     {
-        echo json_encode(['t_invest_total' => $this->service->getTotalBalance()]);
+        return response()->json(['t_invest_total' => $this->service->getTotalBalance()]);
     }
 }

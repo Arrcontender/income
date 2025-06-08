@@ -20,6 +20,6 @@ class BybitController extends Controller
      */
     public function getBalance()
     {
-        echo json_encode(['bybit_total' => $this->service->getTotalBalance()]);
+        return response()->json(['bybit_total' => $this->service->getTotalBalance()]);
     }
 }

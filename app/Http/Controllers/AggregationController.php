@@ -19,6 +19,6 @@ class AggregationController extends Controller
      */
     public function getTotalBalance()
     {
-        echo json_encode(['total_balance' => $this->service->getTotalBalance()]);
+        return response()->json(['total_balance' => $this->service->getTotalBalance()]);
     }
 }
